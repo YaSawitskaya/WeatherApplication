@@ -1,4 +1,4 @@
-const axios = require("axios").default;
+import axios from 'axios';
 let apiKey = "255fecacd03f64ca1a7cf258d739df89";
 
 let temperatureIn = "C";
