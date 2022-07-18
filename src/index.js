@@ -1,4 +1,4 @@
-import axios from 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
+const axios = require('axios').default;
 let apiKey = "255fecacd03f64ca1a7cf258d739df89";
 
 let temperatureIn = "C";
