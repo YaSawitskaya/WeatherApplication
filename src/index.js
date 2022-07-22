@@ -13,7 +13,7 @@ var date = [
 ];
 
 let city = "";
-let metric = "metric";
+let units = "metric";
 let temp = 0.0;
 
 function dateFill(timestamp) {
@@ -41,12 +41,8 @@ function dateFill(timestamp) {
 }
 
 function getTemperature(resp) {
-  //console.log(resp.data);
   temp = resp.data.main.temp;
-  //console.log(temp);
   city = resp.data.name;
-  //console.log(resp.data.name);
-  //console.log(city);
   var currTemp = document.querySelector("#curr-temp");
   currTemp.innerHTML = temp;
   var cityDisplay = document.querySelector("#city-display");
@@ -64,8 +60,7 @@ function select(event) {
   var input = document.querySelector("input");
   city = input.value;
   var cityDisplay = document.querySelector("#city-display");
-  //cityDisplay.innerHTML = `${city} today`;
-  var weatherQueryStr = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&appid=${apiKey}`;
+  var weatherQueryStr = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
   if (city) {
     axios.get(weatherQueryStr).then(getTemperature);
     temperatureIn = "C";
@@ -82,22 +77,38 @@ function tempConvert(event) {
   var target = event.target;
   var tempList = document.querySelectorAll(".temperature-display");
   var tVal = 0;
-  tempList.forEach((tmp) => {
-    tVal = tmp.innerHTML;
-    if (temperatureIn === "C" && target.id === "frn") {
-      tVal = 32 + (tVal * 9) / 5;
+  var fLink = document.querySelector("#frn");
+  var cLink = document.querySelector("#cls");
+  if (units == "metric") {
+    //Convert to imperial/Fahrenheit
+    if (target.id == "frn") {
+      tempList.forEach((tmp) => {
+        tVal = tmp.innerHTML;  
+        tVal = 32 + (tVal * 9) / 5;
+        tVal = Math.round(tVal * 10) / 10;
+        tmp.innerHTML = tVal;
+      });
+      cLink.classList.remove("active");
+      //fLink.classList.add("weather");
+      //cLink.classList.remove("weather");
+      fLink.classList.add("active");
+      units = "imperial";
     }
-    if (temperatureIn === "F" && target.id === "cls") {
-      tVal = ((tVal - 32) * 5) / 9;
+  } else {
+    //Convert to metric/Celsius
+    if (target.id == "cls") {
+      tempList.forEach((tmp) => {
+        tVal = tmp.innerHTML;  
+        tVal = ((tVal - 32) * 5) / 9;
+        tVal = Math.round(tVal * 10) / 10;
+        tmp.innerHTML = tVal;
+      });
+      fLink.classList.remove("active");
+      //cLink.classList.add("weather");
+      //fLink.classList.remove("weather");
+      cLink.classList.add("active");
+      units = "metric";
     }
-    tVal = Math.round(tVal * 10) / 10;
-    tmp.innerHTML = tVal;
-  });
-  if (temperatureIn === "C" && target.id === "frn") {
-    temperatureIn = "F";
-  }
-  if (temperatureIn === "F" && target.id === "cls") {
-    temperatureIn = "C";
   }
 }
 
@@ -105,9 +116,8 @@ function weatherInLocation(resp) {
   var lon = resp.coords.longitude;
   var lat = resp.coords.latitude;
   //alert(`At the current location ${city}/n longitude:${lon}&latitude:${lat}`);
-  var weatherQueryStr = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  var weatherQueryStr = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
   axios.get(weatherQueryStr).then(getTemperature);
-  temperatureIn = "C";
 }
 
 function currLocWeather() {
