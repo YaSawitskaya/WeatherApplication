@@ -134,3 +134,4 @@ anc.addEventListener("click", tempConvert);
 anc = document.querySelector("#frn");
 anc.addEventListener("click", tempConvert);
 
+currLocWeather();
