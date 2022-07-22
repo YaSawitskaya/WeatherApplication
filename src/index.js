@@ -27,13 +27,16 @@ function dateFill(timestamp) {
   var minits = "00";
   var hours = "00";
   if (now.getMinutes() < 10) {
-    minits = "0" + now.getMinutes();
+      minits = "0" + now.getMinutes();
+  } else {
+      minits = now.getMinutes();
   }
   if (now.getHours() < 10) {
-    hours = "0" + now.getHours();
+      hours = "0" + now.getHours();
+  } else {
+      hours = now.getHours();
   }
-  var dateString =
-    date[now.getDay() - 1] + ", " + hours + ":" + minits;
+  var dateString = `Apdated at ${date[now.getDay() - 1]}, ${hours}:${minits}`;
   dateDisplay.innerHTML = dateString;
 }
 
