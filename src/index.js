@@ -16,17 +16,24 @@ let city = "";
 let metric = "metric";
 let temp = 0.0;
 
-function dateFill() {
+function dateFill(timestamp) {
+  var now;
+  if (timestamp != null) {
+      now = new Date(timestamp * 1000);
+  } else {
+      now = new Date();
+  }
   var dateDisplay = document.querySelector("#date-display");
-  let now = new Date();
-  var minits = "";
+  var minits = "00";
+  var hours = "00";
   if (now.getMinutes() < 10) {
     minits = "0" + now.getMinutes();
-  } else {
-    minits = "" + now.getMinutes();
+  }
+  if (now.getHours() < 10) {
+    hours = "0" + now.getHours();
   }
   var dateString =
-    date[now.getDay() - 1] + ", " + now.getHours() + ":" + minits;
+    date[now.getDay() - 1] + ", " + hours + ":" + minits;
   dateDisplay.innerHTML = dateString;
 }
 
@@ -41,6 +48,7 @@ function getTemperature(resp) {
   currTemp.innerHTML = temp;
   var cityDisplay = document.querySelector("#city-display");
   cityDisplay.innerHTML = `${city} today`;
+  dateFill(resp.data.dt);
 }
 
 function select(event) {
@@ -57,8 +65,6 @@ function select(event) {
     alert("Try again to type city name!");
   }
 }
-
-dateFill();
 
 let form = document.querySelector("#city-selector-form");
 form.addEventListener("submit", select);
@@ -90,7 +96,7 @@ function tempConvert(event) {
 function weatherInLocation(resp) {
   var lon = resp.coords.longitude;
   var lat = resp.coords.latitude;
-  alert(`At the current location ${city}/n longitude:${lon}&latitude:${lat}`);
+  //alert(`At the current location ${city}/n longitude:${lon}&latitude:${lat}`);
   var weatherQueryStr = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
   axios.get(weatherQueryStr).then(getTemperature);
   temperatureIn = "C";
@@ -107,3 +113,4 @@ var anc = document.querySelector("#cls");
 anc.addEventListener("click", tempConvert);
 anc = document.querySelector("#frn");
 anc.addEventListener("click", tempConvert);
+
