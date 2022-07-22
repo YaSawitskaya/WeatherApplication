@@ -29,7 +29,11 @@
   </head>
   <body>
     <div class="container">
-      <h1><span class="weather">Weather</span> Forecast (<a href="#" class="active" id="cls" >°C</a>|<a href="#" id="frn">°F</a>)</h1>
+      <h1>
+        <span class="weather">Weather</span> Forecast (
+          <a href="#" class="active" id="cls" >metric</a>|
+          <a href="#" id="frn">imperial</a>)
+        </h1>
       <div class="row text-center">
         <button type="button" class="btn-danger" id="curr-location-button">Current location</button>
       </div>
@@ -51,8 +55,11 @@
         <div class="col">
           <h2 id="city-display">Somewere</h2>
           <p id="date-display">Today is ...</p>
-          <h3><span class="temperature-display" id="curr-temp">18</span> 
-          <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Rain" id="weather-icon" height="48">
+          <h3>
+            <span class="temperature-display" id="curr-temp">18</span>, 
+            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Rain" id="weather-icon" height="64">
+            , wind - <span class="temperature-display" id="curr-wind">0.5</span>
+          </h3>
         </div>
       </div>
 

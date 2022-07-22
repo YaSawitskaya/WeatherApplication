@@ -1,7 +1,6 @@
 //const axios = require('axios').default;
 let apiKey = "255fecacd03f64ca1a7cf258d739df89";
 
-let temperatureIn = "C";
 var date = [
   "Monday",
   "Tuesday",
@@ -15,6 +14,7 @@ var date = [
 let city = "";
 let units = "metric";
 let temp = 0.0;
+let wind = 0.0;
 
 function dateFill(timestamp) {
   var now;
@@ -40,11 +40,14 @@ function dateFill(timestamp) {
   dateDisplay.innerHTML = dateString;
 }
 
-function getTemperature(resp) {
+function getWeather(resp) {
   temp = resp.data.main.temp;
   city = resp.data.name;
+  wind = resp.data.wind.speed;
   var currTemp = document.querySelector("#curr-temp");
   currTemp.innerHTML = temp;
+  var currWSpeed = document.querySelector("#curr-wind");
+  currWSpeed.innerHTML = wind;
   var cityDisplay = document.querySelector("#city-display");
   cityDisplay.innerHTML = `At ${city} today`;
   var wIconId = resp.data.weather[0].icon;
@@ -62,8 +65,7 @@ function select(event) {
   var cityDisplay = document.querySelector("#city-display");
   var weatherQueryStr = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
   if (city) {
-    axios.get(weatherQueryStr).then(getTemperature);
-    temperatureIn = "C";
+    axios.get(weatherQueryStr).then(getWeather);
   } else {
     alert("Try again to type city name!");
   }
@@ -76,6 +78,7 @@ function tempConvert(event) {
   event.preventDefault();
   var target = event.target;
   var tempList = document.querySelectorAll(".temperature-display");
+  var windElm = document.querySelector("#curr-wind");
   var tVal = 0;
   var fLink = document.querySelector("#frn");
   var cLink = document.querySelector("#cls");
@@ -88,9 +91,9 @@ function tempConvert(event) {
         tVal = Math.round(tVal * 10) / 10;
         tmp.innerHTML = tVal;
       });
+      wind = 2.236 * wind;
+      windElm.innerHTML = Math.round(wind * 100) / 100;
       cLink.classList.remove("active");
-      //fLink.classList.add("weather");
-      //cLink.classList.remove("weather");
       fLink.classList.add("active");
       units = "imperial";
     }
@@ -103,9 +106,9 @@ function tempConvert(event) {
         tVal = Math.round(tVal * 10) / 10;
         tmp.innerHTML = tVal;
       });
+      wind = wind / 2.236;
+      windElm.innerHTML = Math.round(wind * 100) / 100;
       fLink.classList.remove("active");
-      //cLink.classList.add("weather");
-      //fLink.classList.remove("weather");
       cLink.classList.add("active");
       units = "metric";
     }
@@ -115,9 +118,8 @@ function tempConvert(event) {
 function weatherInLocation(resp) {
   var lon = resp.coords.longitude;
   var lat = resp.coords.latitude;
-  //alert(`At the current location ${city}/n longitude:${lon}&latitude:${lat}`);
   var weatherQueryStr = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
-  axios.get(weatherQueryStr).then(getTemperature);
+  axios.get(weatherQueryStr).then(getWeather);
 }
 
 function currLocWeather() {
