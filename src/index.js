@@ -36,30 +36,35 @@ function dateFill(timestamp) {
   } else {
       hours = now.getHours();
   }
-  var dateString = `Apdated at ${date[now.getDay() - 1]}, ${hours}:${minits}`;
+  var dateString = `( updated at ${date[now.getDay() - 1]}, ${hours}:${minits} )`;
   dateDisplay.innerHTML = dateString;
 }
 
 function getTemperature(resp) {
-  console.log(resp.data);
+  //console.log(resp.data);
   temp = resp.data.main.temp;
-  console.log(temp);
+  //console.log(temp);
   city = resp.data.name;
-  console.log(resp.data.name);
-  console.log(city);
+  //console.log(resp.data.name);
+  //console.log(city);
   var currTemp = document.querySelector("#curr-temp");
   currTemp.innerHTML = temp;
   var cityDisplay = document.querySelector("#city-display");
-  cityDisplay.innerHTML = `${city} today`;
+  cityDisplay.innerHTML = `At ${city} today`;
+  var wIconId = resp.data.weather[0].icon;
+  var wIcon = `http://openweathermap.org/img/wn/${wIconId}@2x.png`;
+  var imgElm = document.querySelector("#weather-icon");
+  imgElm.setAttribute("src", wIcon);
+  imgElm.setAttribute("alt", resp.data.weather[0].main);
   dateFill(resp.data.dt);
 }
 
 function select(event) {
   event.preventDefault();
   var input = document.querySelector("input");
-  city = input.value.toUpperCase();
+  city = input.value;
   var cityDisplay = document.querySelector("#city-display");
-  cityDisplay.innerHTML = `${city} today`;
+  //cityDisplay.innerHTML = `${city} today`;
   var weatherQueryStr = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&appid=${apiKey}`;
   if (city) {
     axios.get(weatherQueryStr).then(getTemperature);
