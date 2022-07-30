@@ -3,19 +3,19 @@ body {
   }
   
   .row {
-    margin-top: 20px !important;
+    margin-top: 5px !important;
   }
   
   .input-search {
-    width: 90%;
+    width: 95%;
     height: 40px;
-    margin: 0;
+    margin: 3px auto 0px !important;
   }
   
   .btn {
     height: 40px;
-    width: 90%;
-    margin-top: 10px;
+    width: 95%;
+    margin-top: 3px;
   }
   
   .weather {
@@ -57,7 +57,11 @@ body {
   }
 
   .weather-box{
-    border: 3px #939393 solid !important;
+    border: 5px #939393 solid !important;
     border-radius: 10px !important;
-    margin: 5px;
+    margin: 0px 3px 3px !important;
+  }
+
+  .top-part{
+    margin: 3px 3px;
   }
