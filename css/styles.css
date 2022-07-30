@@ -55,3 +55,9 @@ body {
   .active:hover {
     cursor: default !important;
   }
+
+  .weather-box{
+    border: 3px #939393 solid !important;
+    border-radius: 10px !important;
+    margin: 5px;
+  }
