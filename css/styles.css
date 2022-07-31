@@ -2,10 +2,6 @@ body {
     font-family: "Courgette", cursive !important;
   }
   
-  .row {
-    margin-top: 5px !important;
-  }
-  
   .input-search {
     width: 95%;
     height: 40px;
@@ -26,9 +22,18 @@ body {
     text-align: center !important;
     margin-top: 20px !important;
   }
-  
+    
   h2 {
     color: #bb2d3b !important;
+    margin: 0px !important;
+  }
+
+  h3 {
+    margin: 0px !important;
+  }
+
+  p {
+    margin: 0px !important;
   }
   
   .fa-sun {
@@ -56,12 +61,17 @@ body {
     cursor: default !important;
   }
 
+  .row {
+    margin-top: 3px !important;
+    padding: 3px !important;
+  }
+
   .weather-box{
     border: 5px #939393 solid !important;
     border-radius: 10px !important;
-    margin: 0px 3px 3px !important;
-    padding-top: 10px;
-    padding-bottom: 5px;
+    margin: 0px 3px !important;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
 
   .top-part{
