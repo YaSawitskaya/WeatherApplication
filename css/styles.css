@@ -60,6 +60,8 @@ body {
     border: 5px #939393 solid !important;
     border-radius: 10px !important;
     margin: 0px 3px 3px !important;
+    padding-top: 10px;
+    padding-bottom: 5px;
   }
 
   .top-part{

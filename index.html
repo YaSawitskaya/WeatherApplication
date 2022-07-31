@@ -37,24 +37,29 @@
       <div class="row text-center">
         <button type="button" class="btn-danger weather-box" id="curr-location-button">Current location</button>
       </div>
-      <div class="row text-center">
+      <div class="row text-center top-part">
         <div class="col">
          <form id="city-selector-form">
-          <input
-            type="text"
-            placeholder="Enter the city"
-            autofocus="on"
-            class="input-search weather-box"
-            id="city-input"
-            value=""
-          />
-          <button type="submit" class="btn btn-danger">Search</button>
+            <input
+              type="text"
+              placeholder="Enter the city"
+              autofocus="on"
+              class="input-search weather-box"
+              id="city-input"
+              value=""
+            />
+            <button type="submit" class="btn btn-danger">Search</button>
+          </form>
         </div>
-      </form>
 
         <div class="col">
           <h2 id="city-display">Somewere</h2>
           <p id="date-display">Today is ...</p>
+        </div>
+
+      </div>
+      <div class="row text-center">
+        <div class="col weather-box" >
           <h3>
             <span class="temperature-display" id="curr-temp">18</span>, 
             <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Rain" id="weather-icon" height="64">
@@ -64,15 +69,6 @@
       </div>
 
       <div class="row text-center" id="forecast-elements">
-        <div class="col weather-box">
-          <h2>Tomorrow</h2>
-          <h3><span class="temperature-display">22</span> <i class="fa-solid fa-cloud-sun"></i></h3>
-        </div>
-
-        <div class="col weather-box">
-          <h2>21.06.2022</h2>
-          <h3><span class="temperature-display">25</span> <i class="fa-solid fa-sun"></i></h3>
-        </div>
       </div>
       
       <hr>
